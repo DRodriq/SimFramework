@@ -99,8 +99,8 @@ def drawOverlay(overlay, overlayType):
   for row in range(0, dimension):
     for column in range(0, dimension):
       if(overlayType == GUI_CONFIG.OVERLAY_TYPES[0]): # Define how this overlay is treated
-        x = GUI_CONFIG.GAME_BOARD_ORIGIN[0] + (celldimY*row) + cellBorderPadding + (2*row*cellBorderPadding) + GUI_CONFIG.GRID_LINE_WIDTH/2
-        y = GUI_CONFIG.GAME_BOARD_ORIGIN[1] + (celldimX*column) + cellBorderPadding + (2*column*cellBorderPadding) + GUI_CONFIG.GRID_LINE_WIDTH/2
+        x = (celldimY*row) + cellBorderPadding + (2*row*cellBorderPadding) + GUI_CONFIG.GRID_LINE_WIDTH/2
+        y = (celldimX*column) + cellBorderPadding + (2*column*cellBorderPadding) + GUI_CONFIG.GRID_LINE_WIDTH/2
         if(overlay[row][column] == 0):
           drawSquareCell(x, y, celldimX, celldimY, COLORS.WHITE)
         else:

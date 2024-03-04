@@ -1,24 +1,33 @@
+import os
+import sys
+sys.path.insert(1, os.path.dirname(os.path.realpath(__file__)) + "\\..")
 from config import SIM_CONFIG as CFG
-import random
-#import Agent
+from random import randint
 
 # A world is a 2D grid of map-points and a set of agents
 class World:
     def __init__(self):
-        self.map = [[MapPoint() for i in range(CFG.MAP_DIMENSION)] for j in range(CFG.MAP_DIMENSION)]
-       # self.agents = [Agent.Agent() for i in range(CFG.NUM_INITIAL_AGENTS)]
+        self.cells = [[Cell() for i in range(CFG.MAP_DIMENSION)] for j in range(CFG.MAP_DIMENSION)]
 
-    def get_overlay(self):
-        return(list()) 
+    def get_overlay(self, feature):
+        overlay = [[cell.features.get(feature) for cell in row] for row in self.cells]
+        return overlay
+    
+    def update_world(self):
+        for i in range(len(self.cells)):
+            for j in range(len(self.cells[i])):
+                self.cells[i][j].features[CFG.CELL_FEATURES[0]] = randint(0,1)
 
 # A Landplot is a collection of attributes associated with an individual grid point and the ids of the present agents
-class MapPoint:
+class Cell:
     def __init__(self):
-        self.agent_ids = []
-        self.features = [{i:0 for i in CFG.MAP_POINT_FEATURES}]
+        val = randint(0,1)
+        self.features = {i:val for i in CFG.CELL_FEATURES}
 
-def main():
-    wrld = World()
-    print(wrld.map[0][0].features)
 
-main()
+if __name__ == "__main__":
+
+    test_world = World()
+
+    print(test_world.cells[0][0].features)
+    print(test_world.get_overlay(CFG.CELL_FEATURES[0]))
