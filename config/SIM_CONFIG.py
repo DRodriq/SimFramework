@@ -26,7 +26,7 @@ NUM_GENERATIONS = 50000
 ######################################################
 
 MAP_DIMENSION = 100
-MAP_POINT_PROPERTIES = ["RESOURCE_TYPE", "RESOURCE_YIELD"]
+MAP_POINT_FEATURES = ["RESOURCE_TYPE", "RESOURCE_YIELD"]
 
 ######################################################
 #                                                    #

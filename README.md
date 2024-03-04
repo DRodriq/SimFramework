@@ -1,3 +1,4 @@
+## About ##
 
 CONFIG.py is a collection of global variables accessed by one or more files
     - Screen sizing

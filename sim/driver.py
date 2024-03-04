@@ -1,10 +1,12 @@
-
+import os
+import sys
+sys.path.insert(1, os.path.dirname(os.path.realpath(__file__)) + "\\..")
 from config import SIM_CONFIG as CFG 
-import Renderer
+import renderer
+import simulation
 import threading
 import pygame
 import time
-import Simulation
 import matplotlib.pyplot as plt
 
 """
@@ -16,7 +18,7 @@ import matplotlib.pyplot as plt
 """
 def main():
     # Renderer setup
-    rendering_thread = threading.Thread(target=Renderer.start_rendering, daemon=None)
+    rendering_thread = threading.Thread(target=renderer.start_rendering, daemon=None)
     if(CFG.DO_RENDER):
         print("[MAIN]: Starting Renderer")
         rendering_thread.start()
@@ -28,8 +30,7 @@ def main():
 
     # Sim Init
     print("[MAIN]: Simulation Setup")
-    simulation = Simulation.Simulation()
-    simulation.initialize()
+    sim = simulation.Simulation()
 
     # Loop 
     i = 0
@@ -37,15 +38,15 @@ def main():
     while( i < CFG.NUM_GENERATIONS and rendering_thread.is_alive()):
         if(CFG.PAUSE_SIMULATION == 0):
             start = time.time()
-            iter_results = simulation.execute_timestep()
+            iter_results = sim.execute_timestep()
             for i in range(len(iter_results)):
                 results[i+1].append(iter_results[i])
             end = time.time()
             results[0].append(end - start)
         if(CFG.DO_RENDER):
-            overlays = simulation.get_overlays()
+            overlays = sim.get_overlays()
             for i in range(len(overlays)):
-                update = pygame.event.Event(Renderer.GUI_CONFIG.OVERLAY_TYPES[i], message = overlays[i]) #Get object overlay
+                update = pygame.event.Event(renderer.GUI_CONFIG.OVERLAY_TYPES[i], message = overlays[i]) #Get object overlay
                 pygame.event.post(update)
 
         #Collect Results
@@ -63,7 +64,7 @@ def main():
 
     # Teardown
     if(CFG.DO_RENDER):
-        stop_rendering = pygame.event.Event(Renderer.STOP_RENDERING, message=False)
+        stop_rendering = pygame.event.Event(renderer.STOP_RENDERING, message=False)
         pygame.event.post(stop_rendering)
     print("[MAIN]: Done")
 
