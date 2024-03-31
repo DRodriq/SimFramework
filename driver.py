@@ -1,9 +1,6 @@
-import os
-import sys
-sys.path.insert(1, os.path.dirname(os.path.realpath(__file__)) + "\\..")
 from config import SIM_CONFIG as CFG 
-import renderer
-import simulation
+from rendering import renderer
+from sim import simulation
 import threading
 import pygame
 import time
@@ -16,6 +13,7 @@ import matplotlib.pyplot as plt
     Run simulation loop, update renderer, log data
     Post process data
 """
+
 def main():
     # Renderer setup
     rendering_thread = threading.Thread(target=renderer.start_rendering, daemon=None)
@@ -67,6 +65,5 @@ def main():
         stop_rendering = pygame.event.Event(renderer.STOP_RENDERING, message=False)
         pygame.event.post(stop_rendering)
     print("[MAIN]: Done")
-
 
 main()
