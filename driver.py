@@ -41,11 +41,11 @@ def main():
                 results[i+1].append(iter_results[i])
             end = time.time()
             results[0].append(end - start)
-        if(CFG.DO_RENDER):
-            overlays = sim.get_overlays()
-            for i in range(len(overlays)):
-                update = pygame.event.Event(renderer.GUI_CONFIG.OVERLAY_TYPES[i], message = overlays[i]) #Get object overlay
-                pygame.event.post(update)
+            if(CFG.DO_RENDER):
+                overlays = sim.get_overlays()
+                for i in range(len(overlays)):
+                    update = pygame.event.Event(renderer.GUI_CONFIG.OVERLAY_TYPES[i], message = overlays[i]) #Get object overlay
+                    pygame.event.post(update)
 
         #Collect Results
         time.sleep(CFG.SIM_SPEED)
