@@ -4,14 +4,15 @@ import os
 sys.path.insert(1, os.getcwd())
 from config import UI_CONFIG
 import datetime
-from widgets import tab1
+from widgets import tab1, tab2, pygame_widget
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
         self.log_buffer = []
-
+        
         self.setGeometry(UI_CONFIG.STRT, UI_CONFIG.END, UI_CONFIG.LEN, UI_CONFIG.WID)
         self.setWindowTitle(UI_CONFIG.WINDOW_TITLE)
         self.session_name = "Session-{}".format(datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
@@ -23,6 +24,9 @@ class MainWindow(QMainWindow):
         self.layout = QVBoxLayout()
         self.central_widget.setLayout(self.layout)
 
+        pygame = pygame_widget.PygameWidget(self)
+        self.layout.addChildWidget(pygame)
+
         self.set_title_section()
 
         self.tab_widget = QTabWidget()
@@ -30,11 +34,12 @@ class MainWindow(QMainWindow):
         self.layout.addWidget(self.tab_widget)
 
         # Create and add tabs
-        self.tab_widget.addTab(tab1.Tab1(), UI_CONFIG.SECTION_1_TITLE)
-        self.add_tab("Tab 2")
+        self.tab_widget.addTab(tab1.Tab1(), UI_CONFIG.TAB_1_TITLE)
+        self.tab_widget.addTab(tab2.Tab2(), UI_CONFIG.TAB_2_TITLE)
         self.add_tab("Tab 3")
 
         self.set_logger_section()
+
 
     def add_tab(self, name):
         tab = QWidget()

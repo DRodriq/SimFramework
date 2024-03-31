@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QWidget
 class PygameWidget(QWidget):
     def __init__(self, parent=None):
         super(PygameWidget, self).__init__(parent)
-        self.setMinimumSize(400, 300)
+        self.setMinimumSize(500, 500)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.surface = None
 
@@ -16,7 +16,7 @@ class PygameWidget(QWidget):
         self.surface = surface
         self.update()
 
-    def paintEvent(self):
+    def paintEvent(self, event):
         if self.surface:
             image = QImage(self.surface.get_buffer().raw, self.surface.get_width(), self.surface.get_height(),
                            QImage.Format_RGB32)
