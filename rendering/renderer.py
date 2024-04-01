@@ -3,25 +3,25 @@ import pygame
 from pygame import USEREVENT
 from pygame.locals import *
 import time
-import os
 from config import GUI_CONFIG
 from config import SIM_CONFIG
 from config import COLORS
 from rendering import sim_window
 from utils import logging
 
+STOP_RENDERING = USEREVENT + 10
+MOUSE_CLICK = USEREVENT + 11
 
 class Renderer():
     def __init__(self):
         for i in range(len(GUI_CONFIG.OVERLAY_TYPES)):
             GUI_CONFIG.OVERLAY_TYPES[i] = USEREVENT + (i+1)
 
-        self.STOP_RENDERING = USEREVENT + 10
-        self.MOUSE_CLICK = USEREVENT + 11
         self.sim = sim_window.Sim_Window()
         self.sim.drawGameBoard()
 
-    def start_rendering(self):
+    def start_rendering_loop(self):
+        logging.log("INFO", "Starting Rendering Loop", "renderer.py", "renderer.start_rendering_loop")
         while True:
             self.checkEvents(self.sim)
             self.sim.redraw()
@@ -40,7 +40,8 @@ class Renderer():
             elif event.type == GUI_CONFIG.OVERLAY_TYPES[1]:
                 overlay_transform = [list(map(overlay_2_map, x)) for x in event.message]
                 sim_window.drawOverlay(overlay_transform)
-            elif event.type == self.STOP_RENDERING:
+            elif event.type == STOP_RENDERING:
+                logging.log("INFO", "Stopping renderer", "renderer.py", "renderer.check_events")
                 pygame.quit()
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -74,6 +75,8 @@ def register_button_click(click):
             and click[1] >= pause_button_loc[1] and click[1] <= pause_button_loc[1] + pause_button_size[1]):
         SIM_CONFIG.PAUSE_SIMULATION = 1 if SIM_CONFIG.PAUSE_SIMULATION == 0 else 0
 
+
 def start_rendering():
+    logging.log("INFO", "Initializing Renderer", "renderer.py", "start_rendering")
     renderer = Renderer()
-    renderer.start_rendering()
+    renderer.start_rendering_loop()

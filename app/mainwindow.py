@@ -24,9 +24,6 @@ class MainWindow(QMainWindow):
         self.layout = QVBoxLayout()
         self.central_widget.setLayout(self.layout)
 
-        pygame = pygame_widget.PygameWidget(self)
-        self.layout.addChildWidget(pygame)
-
         self.set_title_section()
 
         self.tab_widget = QTabWidget()

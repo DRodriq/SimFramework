@@ -17,7 +17,7 @@ DO_RENDER = True
 ######################################################
 
 VARIABLES = ["SIM_EXECUTION_SPEED", "..."]
-NUM_GENERATIONS = 50000
+NUM_GENERATIONS = 50
 
 ######################################################
 #                                                    #
