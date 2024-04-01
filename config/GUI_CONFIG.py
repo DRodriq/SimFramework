@@ -36,7 +36,7 @@ OVERLAY_TYPES = ["<OVERLAY1>", "<OVERLAY2>", "..."]
 #                                                    #
 ######################################################
 
-DO_DRAW_TABLE = True
+DO_DRAW_TABLE = False
 
 TABLE = (   ["Heading 1"],
             ["E1", 0],
