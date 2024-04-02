@@ -1,11 +1,11 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTabWidget, QWidget, QVBoxLayout, QLabel, QTextEdit,QPushButton
+from PyQt5.QtWidgets import QApplication, QMainWindow, QTabWidget, QWidget, QVBoxLayout, QLabel, QTextEdit,QPushButton, QMenuBar, QAction
+from PyQt5.QtCore import Qt
 import os
 sys.path.insert(1, os.getcwd())
 from config import UI_CONFIG
 import datetime
-from widgets import tab1, tab2, pygame_widget
-
+from widgets import tab1, tab2, s_toolbar
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -24,6 +24,9 @@ class MainWindow(QMainWindow):
         self.layout = QVBoxLayout()
         self.central_widget.setLayout(self.layout)
 
+        toolbar = s_toolbar.Sim_Toolbar()
+        self.layout.addWidget(toolbar)
+
         self.set_title_section()
 
         self.tab_widget = QTabWidget()
@@ -36,7 +39,6 @@ class MainWindow(QMainWindow):
         self.add_tab("Tab 3")
 
         self.set_logger_section()
-
 
     def add_tab(self, name):
         tab = QWidget()
