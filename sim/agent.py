@@ -3,7 +3,13 @@ import sys
 from config import SIM_CONFIG
 import random
 
-# An agent is a ### at a position in the world
+"""
+    Data model: 
+        Agent()
+            Attributes - dict
+                key - static, enum
+                value - dynamic
+"""
 class Agent:
     def __init__(self, id):
         self.ID = id

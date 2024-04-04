@@ -4,7 +4,7 @@ from sim import simulation
 import threading
 import pygame
 import time
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from utils import logging
 
 """
